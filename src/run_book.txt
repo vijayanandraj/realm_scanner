@@ -1,3 +1,6 @@
 jfrog rt search --spec=/tmp/jfrogfilespec.json --sort-by created --sort-order=desc --limit 1
 
 { "files": [ { "aql": { "items.find": { "repo":{"$eq":"my-release-repo"}, "name":{"$match":"my-artifact-prefix*"} } } } ] }
+
+set JFROG_CLI_LOG_LEVEL=DEBUG
+
