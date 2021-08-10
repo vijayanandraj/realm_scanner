@@ -49,3 +49,9 @@ Kubernetes, Prometheus, Helm, Envoy, and gRPC.
 The CNCF fosters an ecosystem of open-source and vendor-neutrality. Following that lead, this book presents
 cloud-native principles, patterns, and best practices that are technology agnostic. At the same time, we discuss
 the services and infrastructure available in the Microsoft Azure cloud for constructing cloud-native systems.
+
+result = {
+  'a': lambda x: x * 5,
+  'b': lambda x: x + 7,
+  'c': lambda x: x - 2
+}.get(whatToUse, lambda x: x - 22)(value)
