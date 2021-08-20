@@ -55,3 +55,44 @@ result = {
   'b': lambda x: x + 7,
   'c': lambda x: x - 2
 }.get(whatToUse, lambda x: x - 22)(value)
+
+    # Connection and Cursor
+    conn = MySQLdb.connect('localhost', 'jeff', 'atwood', 'stackoverflow')
+    cur = conn.cursor()
+
+    query = ""
+    values = []
+
+    for data_dict in data_list:
+
+        if not query:
+            columns = ', '.join('`{0}`'.format(k) for k in data_dict)
+            duplicates = ', '.join('{0}=VALUES({0})'.format(k) for k in data_dict)
+            place_holders = ', '.join('%s'.format(k) for k in data_dict)
+            query = "INSERT INTO {0} ({1}) VALUES ({2})".format(mysql_table, columns, place_holders)
+            query = "{0} ON DUPLICATE KEY UPDATE {1}".format(query, duplicates)
+
+        v = data_dict.values()
+        values.append(v)
+
+    try:
+        cur.executemany(query, values)
+    except MySQLdb.Error, e:
+        try:
+            print"MySQL Error [%d]: %s" % (e.args[0], e.args[1])
+        except IndexError:
+            print "MySQL Error: %s" % str(e)
+
+        conn.rollback()
+        return False
+
+    conn.commit()
+    cur.close()
+    conn.close()
+
+test_data_list = []
+test_data_list.append( {'id' : 1, 'name' : 'Tech', 'articles' : 1 } )
+test_data_list.append( {'id' : 2, 'name' : 'Jhola', 'articles' : 8 } )
+test_data_list.append( {'id' : 3, 'name' : 'Wes', 'articles' : 0 } )
+
+update_many(data_list=test_data_list, mysql_table='writers')
