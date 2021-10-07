@@ -96,3 +96,5 @@ test_data_list.append( {'id' : 2, 'name' : 'Jhola', 'articles' : 8 } )
 test_data_list.append( {'id' : 3, 'name' : 'Wes', 'articles' : 0 } )
 
 update_many(data_list=test_data_list, mysql_table='writers')
+
+https://stackoverflow.com/questions/63782892/using-asyncio-to-wait-for-results-from-subprocess
