@@ -98,3 +98,86 @@ test_data_list.append( {'id' : 3, 'name' : 'Wes', 'articles' : 0 } )
 update_many(data_list=test_data_list, mysql_table='writers')
 
 https://stackoverflow.com/questions/63782892/using-asyncio-to-wait-for-results-from-subprocess
+
+<script src="https://code.highcharts.com/highcharts.js"></script>
+
+<div id="somatocarta" style="height:450px;width:500px;"></div>
+
+var data = [
+         {"x":0,"y":0},      // en el Centro
+         {"x":78,"y":8},   // cuadrante Superioro Alto Izquierdo
+         {"x":15,"y":35},    // cuadrante Superior Alto Derecho
+         {"x":45,"y":13},    // cuadrante Superior Medio Derecho
+         {"x":52,"y":-13},   // cuadrante Inferior Medio Derecho
+         {"x":25,"y":-33},   // cuadrante Inferior Bajo Derecho
+         {"x":-25,"y":-33},  // cuadrante Inferior Bajo Izquierdo
+         {"x":-42,"y":-14},  // cuadrante Inferior Medio Izquierdo   
+         {"x":-42,"y":14},   // cuadrante Superior Medio Izquierdo
+
+    ]
+
+    //alert(JSON.stringify(data));
+
+
+    Highcharts.chart('somatocarta', {
+    chart: {
+        plotBackgroundImage: 'https://raw.githubusercontent.com/aledc7/Laravel/master/resources/somatocarta.png',
+        renderTo: 'somatocarta',
+            defaultSeriesType:'scatter',
+            borderWidth:1,
+            borderColor:'#ccc',
+            marginLeft:90,
+            marginRight:50,
+    },
+
+    title:{
+            text:'Somatocarta'
+        },
+        legend:{
+            enabled:false                                
+        },
+        tooltip: {
+            formatter: function() {
+                return '<b>'+ this.series.name +'</b><br/>'+
+                    this.x +': '+ this.y;
+            }
+        },
+        plotOptions: {
+            series: {
+                shadow:false,
+            }
+        },
+        xAxis:{
+            title:{
+                text:'X Axis Title'
+            },
+            min:0,
+            max:100,
+            tickInterval:10,
+            tickLength:0,
+            minorTickLength:0,
+            gridLineWidth:1,
+            showLastLabel:true,
+            showFirstLabel:false,
+            lineColor:'#ccc',
+            lineWidth:1                
+        },
+        yAxis:{
+            title:{
+                text:'Y Axis<br/>Title',
+                rotation:0,
+                margin:25,
+            },
+            min:0,
+            max:10,
+            tickInterval:1,
+            tickLength:3,
+            minorTickLength:0,
+            lineColor:'#ccc',
+            lineWidth:1        
+        },
+        series: [{
+            color:'#185aa9',
+            data: data
+        }]
+});
